@@ -21,7 +21,14 @@ func main() {
 	// read 1Bps
 	buf := make([]byte, 1)
 
-	conn.SetReadBuffer(1)
+	tc, ok := conn.(*net.TCPConn)
+	if !ok {
+		log.Fatal("conn is not a *net.TCPConn")
+	}
+	err = tc.SetReadBuffer(1)
+	if err != nil {
+		log.Fatal(err)
+	}
 
 	size := 0
 	for {
