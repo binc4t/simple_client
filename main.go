@@ -13,9 +13,7 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	defer conn.Close(
-	conn.set(1)
-
+	defer conn.Close()
 
 	// send http request: /mock
 	conn.Write([]byte("GET /mock HTTP/1.1\r\nHost: localhost:8080\r\n\r\n"))
