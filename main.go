@@ -13,19 +13,21 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	defer conn.Close()
+	defer conn.Close(
+	conn.set(1)
+
 
 	// send http request: /mock
 	conn.Write([]byte("GET /mock HTTP/1.1\r\nHost: localhost:8080\r\n\r\n"))
 
 	// read 1Bps
-	buf := make([]byte, 1)
+	buf := make([]byte, 1024)
 
 	tc, ok := conn.(*net.TCPConn)
 	if !ok {
 		log.Fatal("conn is not a *net.TCPConn")
 	}
-	err = tc.SetReadBuffer(1)
+	err = tc.SetReadBuffer(1024)
 	if err != nil {
 		log.Fatal(err)
 	}
